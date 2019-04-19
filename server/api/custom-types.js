@@ -14,6 +14,9 @@ const { GraphQLScalarType } = require('graphql');
  */
 
 // @TOOD: Refactor this into a custom DATE scalar type using new GraphQLScalarType()
+
+
+
 const DateScalar = undefined;
 // -------------------------------
 

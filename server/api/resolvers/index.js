@@ -120,11 +120,10 @@ module.exports = app => {
       //     email: "mock@user.com",
       //     bio: "Mock user. Remove me."
       //   }
-      //   // -------------------------------
       // },
-      async tags(parent, args, { pgResource }) {
+      async tags({id}, args, { pgResource }) {
         try {
-          return await pgResource.getTagsForItem(parent);
+          return await pgResource.getTagsForItem(id);
         } catch (e) {
           throw new ApolloError(e);
         }

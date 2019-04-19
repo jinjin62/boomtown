@@ -124,7 +124,6 @@ module.exports = postgres => {
       }
     },
     async getTagsForItem(item) {
-      console.log(item);
       try {
         const tagsQuery = {
           text: `SELECT * FROM items JOIN itemtags ON items.id = itemtags.itemid WHERE items.id = $1`,

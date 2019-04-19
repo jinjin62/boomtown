@@ -81,34 +81,17 @@ module.exports = postgres => {
       } catch (e) {
         throw new ApolloError(e);
       }
-      /**
-       *  Refactor the following code using the error handling logic described above.
-       *  When you're done here, ensure all of the resource methods in this file
-       *  include a try catch, and throw appropriate errors.
-       *
-       *  Here is an example throw statement: throw 'User was not found.'
-       *  Customize your throw statements so the message can be used by the client.
-       */
-
-      // -------------------------------
     },
     async getItems(idToOmit) {
-      const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *
-         *  Get all Items. If the idToOmit parameter has a value,
-         *  the query should only return Items were the ownerid column
-         *  does not contain the 'idToOmit'
-         *
-         *  Hint: You'll need to use a conditional AND and WHERE clause
-         *  to your query text using string interpolation
-         */
-
-        text: `SELECT * FROM items WHERE $1 != ownerid`,
-        values: idToOmit ? [idToOmit] : []
-      });
-      return items.rows;
+      try {
+        const items = await postgres.query({
+          text: `SELECT * FROM items WHERE $1 != ownerid`,
+          values: idToOmit ? [idToOmit] : []
+        });
+        return items.rows;
+      } catch (e) {
+        throw new ApolloError(e);
+      }
     },
     async getItemsForUser(id) {
       const items = await postgres.query({

@@ -72,10 +72,15 @@ module.exports = postgres => {
        */
 
       const findUserQuery = {
-        text: '', // @TODO: Basic queries
+        text: 'SELECT * FROM USERS WHERE id=$1',
         values: [id]
       };
-
+      try {
+        const user = await postgres.query(findUserQuery);
+        return user.rows[0];
+      } catch (e) {
+        throw new ApolloError(e);
+      }
       /**
        *  Refactor the following code using the error handling logic described above.
        *  When you're done here, ensure all of the resource methods in this file
@@ -85,8 +90,6 @@ module.exports = postgres => {
        *  Customize your throw statements so the message can be used by the client.
        */
 
-      const user = await postgres.query(findUserQuery);
-      return user;
       // -------------------------------
     },
     async getItems(idToOmit) {
@@ -102,7 +105,7 @@ module.exports = postgres => {
          *  to your query text using string interpolation
          */
 
-        text: ``,
+        text: `SELECT * FROM items WHERE $1 != ownerid`,
         values: idToOmit ? [idToOmit] : []
       });
       return items.rows;
@@ -111,9 +114,8 @@ module.exports = postgres => {
       const items = await postgres.query({
         /**
          *  @TODO: Advanced queries
-         *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
          */
-        text: ``,
+        text: `SELECT * FROM items WHERE ownerid = $1`,
         values: [id]
       });
       return items.rows;
@@ -122,7 +124,6 @@ module.exports = postgres => {
       const items = await postgres.query({
         /**
          *  @TODO: Advanced queries
-         *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
          */
         text: ``,
         values: [id]
@@ -130,17 +131,24 @@ module.exports = postgres => {
       return items.rows;
     },
     async getTags() {
-      const tags = await postgres.query(/* @TODO: Basic queries */);
-      return tags.rows;
+      try {
+        const tags = await postgres.query('SELECT * FROM tags');
+        return tags.rows;
+      } catch (e) {
+        throw new ApolloError(e);
+      }
     },
-    async getTagsForItem(id) {
-      const tagsQuery = {
-        text: ``, // @TODO: Advanced queries
-        values: [id]
-      };
-
-      const tags = await postgres.query(tagsQuery);
-      return tags.rows;
+    async getTagsForItem(item) {
+      console.log(item);
+      try {
+        const tagsQuery = {
+          text: `SELECT * FROM items JOIN itemtags ON items.id = itemtags.itemid WHERE items.id = $1`,
+          values: [item.id]
+        };
+        return await postgres.query(tagsQuery).rows;
+      } catch (e) {
+        throw new ApolloError(e);
+      }
     },
     async saveNewItem({ item, user }) {
       /**

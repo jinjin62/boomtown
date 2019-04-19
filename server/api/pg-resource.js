@@ -94,14 +94,15 @@ module.exports = postgres => {
       }
     },
     async getItemsForUser(id) {
-      const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         */
-        text: `SELECT * FROM items WHERE ownerid = $1`,
-        values: [id]
-      });
-      return items.rows;
+      try {
+        const items = await postgres.query({
+          text: `SELECT * FROM items WHERE ownerid = $1`,
+          values: [id]
+        });
+        return items.rows;
+      } catch (e) {
+        throw new ApolloError(e);
+      }
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({

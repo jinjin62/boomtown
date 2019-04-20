@@ -89,9 +89,9 @@ module.exports = app => {
     },
 
     Item: {
-      async itemowner({ id }, args, { pgResource }) {
+      async itemowner({ ownerid }, args, { pgResource }) {
         try {
-          const ownerItem = await pgResource.getItemsForUser(id);
+          const ownerItem = await pgResource.getUserById(ownerid);
           return ownerItem;
         } catch (e) {
           throw new ApolloError(e);
@@ -110,7 +110,7 @@ module.exports = app => {
           return null;
         }
         try {
-          const borrower = await pgResource.getBorrowedItemsForUser(borrowerid);
+          const borrower = await pgResource.getUserById(borrowerid);
           return borrower;
         } catch (e) {
           throw new ApolloError(e);

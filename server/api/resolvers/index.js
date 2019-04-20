@@ -112,16 +112,14 @@ module.exports = app => {
        *
        */
       // @TODO: Uncomment these lines after you define the Item type with these fields
-      // async itemowner() {
-      //   // @TODO: Replace this mock return statement with the correct user from Postgres
-      //   return {
-      //     id: 29,
-      //     fullname: "Mock user",
-      //     email: "mock@user.com",
-      //     bio: "Mock user. Remove me."
-      //   }
-      // },
-      async tags({id}, args, { pgResource }) {
+      async itemowner({ id }, args, { pgResource }) {
+        try {
+          return await pgResource.getItemsForUser(id);
+        } catch (e) {
+          throw new ApolloError(e);
+        }
+      },
+      async tags({ id }, args, { pgResource }) {
         try {
           return await pgResource.getTagsForItem(id);
         } catch (e) {

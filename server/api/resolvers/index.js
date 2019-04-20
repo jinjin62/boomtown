@@ -52,18 +52,17 @@ module.exports = app => {
         }
       },
       async items(parent, { filter }, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct items from Postgres
         try {
           const item = await pgResource.getItems(filter);
           return item;
         } catch (e) {
           return e;
         }
-        // -------------------------------
       },
       async tags(parent, args, { pgResource }) {
         try {
-          return await pgResource.getTags();
+          const tags = await pgResource.getTags();
+          return tags;
         } catch (e) {
           throw new ApolloError(e);
         }
@@ -71,17 +70,6 @@ module.exports = app => {
     },
 
     User: {
-      /**
-       *  @TODO: Advanced resolvers
-       *
-       *  The User GraphQL type has two fields that are not present in the
-       *  user table in Postgres: items and borrowed.
-       *
-       *  According to our GraphQL schema, these fields should return a list of
-       *  Items (GraphQL type) the user has lent (items) and borrowed (borrowed).
-       *
-       */
-      // @TODO: Uncomment these lines after you define the User type with these fields
       async items({ id }, args, { pgResource }) {
         try {
           const userItems = await pgResource.getItemsForUser(id);
@@ -101,37 +89,29 @@ module.exports = app => {
     },
 
     Item: {
-      /**
-       *  @TODO: Advanced resolvers
-       *
-       *  The Item GraphQL type has two fields that are not present in the
-       *  Items table in Postgres: itemowner, tags and borrower.
-       *
-       * According to our GraphQL schema, the itemowner and borrower should return
-       * a User (GraphQL type) and tags should return a list of Tags (GraphQL type)
-       *
-       */
       async itemowner({ id }, args, { pgResource }) {
         try {
-          return await pgResource.getItemsForUser(id);
+          const ownerItem = await pgResource.getItemsForUser(id);
+          return ownerItem;
         } catch (e) {
           throw new ApolloError(e);
         }
       },
       async tags({ id }, args, { pgResource }) {
         try {
-          return await pgResource.getTagsForItem(id);
+          const tags = await pgResource.getTagsForItem(id);
+          return tags;
         } catch (e) {
           throw new ApolloError(e);
         }
       },
-      async borrower({ id }, args, { pgResource }) {
+      async borrower({ borrowerid }, args, { pgResource }) {
+        if (!borrowerid) {
+          return null;
+        }
         try {
-          if (!id) {
-            return null;
-          } else {
-            return await pgResource.getBorrowedItemsForUser(id);
-          }
+          const borrower = await pgResource.getBorrowedItemsForUser(borrowerid);
+          return borrower;
         } catch (e) {
           throw new ApolloError(e);
         }

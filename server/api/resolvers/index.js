@@ -111,7 +111,6 @@ module.exports = app => {
        * a User (GraphQL type) and tags should return a list of Tags (GraphQL type)
        *
        */
-      // @TODO: Uncomment these lines after you define the Item type with these fields
       async itemowner({ id }, args, { pgResource }) {
         try {
           return await pgResource.getItemsForUser(id);
@@ -125,16 +124,18 @@ module.exports = app => {
         } catch (e) {
           throw new ApolloError(e);
         }
+      },
+      async borrower({ id }, args, { pgResource }) {
+        try {
+          if (!id) {
+            return null;
+          } else {
+            return await pgResource.getBorrowedItemsForUser(id);
+          }
+        } catch (e) {
+          throw new ApolloError(e);
+        }
       }
-      // async borrower() {
-      //   /**
-      //    * @TODO: Replace this mock return statement with the correct user from Postgres
-      //    * or null in the case where the item has not been borrowed.
-      //    */
-      //   return null
-      //   // -------------------------------
-      // }
-      // -------------------------------
     },
 
     Mutation: {

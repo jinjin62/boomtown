@@ -2,10 +2,12 @@ import React, { Fragment } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import ItemsContainer from '../pages/Items';
 import Home from '../pages/Home';
+import AppBar from '../components/AppBar';
 
 export default () => (
   <Fragment>
     {/* @TODO: Add your menu component here */}
+    <Route component={AppBar} />
     <Switch>
       {/**
        * @TODO: Define routes here for: /items, /profile, /profile/:userid, and /share

@@ -1,17 +1,20 @@
 const styles = theme => ({
   card: {
     height: '100%',
-    // width: '33%',
     display: 'flex',
-    flexDirection: 'column',
-    // padding: '12px'
-    // margin: '45px'
+    flexDirection: 'column'
   },
   cardMedia: {
     paddingTop: '56.25%' // 16:9
   },
   cardContent: {
     flexGrow: 1
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  input: {
+    display: 'none'
   }
 });
 

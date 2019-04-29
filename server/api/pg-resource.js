@@ -103,13 +103,14 @@ module.exports = postgres => {
         throw new ApolloError(e);
       }
     },
-    async getTagsForItem(item) {
+    async getTagsForItem(id) {
       try {
         const tagsQuery = {
-          text: `SELECT * FROM items JOIN itemtags ON items.id = itemtags.itemid WHERE items.id = $1`,
-          values: [item.id]
+          text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id=itemtags.tagid WHERE itemtags.itemid=$1`,
+          values: [id]
         };
-        return await postgres.query(tagsQuery).rows;
+        const result = await postgres.query(tagsQuery);
+        return result.rows;
       } catch (e) {
         throw new ApolloError(e);
       }

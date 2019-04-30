@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import ItemsContainer from '../pages/Items';
 import Home from '../pages/Home';
 import AppBar from '../components/AppBar';
+import Share from '../pages/Share';
 
 export default () => (
   <Fragment>
@@ -21,7 +22,7 @@ export default () => (
       {/* <Route exact path="/profile" component={Profile} /> */}
       <Route path="/welcome" component={Home} />
       {/* <Route path={`${match.url}`} component={Profile} /> */}
-      {/* <Route path="/share" component={Share} /> */}
+      <Route exact path="/share" component={Share} />
     </Switch>
   </Fragment>
 );

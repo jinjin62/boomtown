@@ -6,8 +6,7 @@ import client from './apollo';
 // @TODO: Uncomment each module as needed in your client app
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom';
-// import { Provider as ReduxProvider } from 'react-redux'
-// -------------------------------
+import { Provider as ReduxProvider } from 'react-redux';
 
 import registerServiceWorker from './registerServiceWorker';
 import theme from './theme';
@@ -41,7 +40,7 @@ import Layout from './routes/Layout';
  *
  * Uncomment the following line when your Redux store is configured
  *
- * import store from './redux'
+ *
  *
  * Below in your <App />, wrap a <ReduxProvider /> component around all
  * of the app's children, and pass it the imported `store` as the `store`
@@ -61,6 +60,7 @@ import Layout from './routes/Layout';
 // @TODO: Remove this import once you have your router working below
 import Home from './pages/Home';
 import ItemsGrid from './components/ItemsGrid';
+import store from './redux';
 // -------------------------------
 
 import './index.css';
@@ -69,14 +69,16 @@ import './index.css';
 
 const App = () => {
   return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <ApolloProvider client={client}>
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
-      </ApolloProvider>
-    </MuiThemeProvider>
+    <ReduxProvider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <ApolloProvider client={client}>
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        </ApolloProvider>
+      </MuiThemeProvider>
+    </ReduxProvider>
   );
 };
 

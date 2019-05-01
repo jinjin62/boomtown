@@ -19,8 +19,8 @@ export const resetItem = () => ({
 
 // initial state
 const initialState = {
-  title: 'Name your item title',
-  description: 'Describe your item description',
+  title: 'Name your item',
+  description: 'Describe your item',
   imageurl: 'https://via.placeholder.com/350x250.png?text=select+an+image',
   tags: [],
   itemowner: {},

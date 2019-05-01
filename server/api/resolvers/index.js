@@ -17,11 +17,20 @@ const { ApolloError } = require('apollo-server-express');
 
 // @TODO: Uncomment these lines later when we add auth
 // const jwt = require("jsonwebtoken")
-// const authMutations = require("./auth")
+const AuthMutationsFunction = require('./auth');
 // -------------------------------
-const { DateScalar } = require('../custom-types');
+const { UploadScaler, DateScalar } = require('../custom-types');
 
 module.exports = app => {
+  /*
+  authMutations = {
+    signup: ()=>{},
+    login: ()=>{},
+    logout: ()=>{},
+  }
+
+  */
+  const authMutations = AuthMutationsFunction(app);
   return {
     // Date: DateScalar,
 
@@ -120,10 +129,10 @@ module.exports = app => {
 
     Mutation: {
       // @TODO: Uncomment this later when we add auth
-      // ...authMutations(app),
+      ...authMutations,
       // -------------------------------
 
-      async addItem(parent, args, context, info) {
+      async addItem(parent, { item }, context, info) {
         /**
          *  @TODO: Destructuring
          *

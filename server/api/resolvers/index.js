@@ -136,15 +136,14 @@ module.exports = app => {
          *  Again, you may look at the user resolver for an example of what
          *  destructuring should look like.
          */
-
-        image = await image;
-        const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
-        const newItem = await context.pgResource.saveNewItem({
-          item: args.item,
-          image: args.image,
-          user
-        });
-        return newItem;
+        // image = await image;
+        // const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
+        // const newItem = await context.pgResource.saveNewItem({
+        //   item: args.item,
+        //   image: args.image,
+        //   user
+        // });
+        // return newItem;
       }
     }
   };

@@ -9,6 +9,9 @@ const styles = theme => ({
   shareFormTitle: {
     fontSize: '4rem',
     fontWeight: 700
+  },
+  formControl: {
+    margin: theme.spacing.unit
   }
 });
 

@@ -62,95 +62,96 @@ const FormView = ({
     <div>
       {/*Typography className={classes.shareFormTitle}*/}
       <h1>Share. Borrow. Prosper. </h1>
-      <form onSubmit={handleSubmit}>
-        <FormSpy
-          subscription={{ values: true }}
-          component={({ values }) => {
-            if (values) {
-              dispatchUpdate(values, tags, updateItem);
-            }
-            return '';
-          }}
-        />
-        <Field
-          name="imageurl"
-          render={({ input, meta }) => (
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInput}
-                id="fileinput"
-                hidden
-                onClick={e => handleSelectFile(e)}
+      <FormControl className={classes.formControl}>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <FormSpy
+            subscription={{ values: true }}
+            component={({ values }) => {
+              if (values) {
+                dispatchUpdate(values, tags, updateItem);
+              }
+              return '';
+            }}
+          />
+          <Field
+            name="imageurl"
+            render={({ input, meta }) => (
+              <div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInput}
+                  id="fileinput"
+                  hidden
+                  onClick={e => handleSelectFile(e)}
+                />
+                <Button
+                  onClick={() => {
+                    fileInput.current.click();
+                  }}
+                  className={classes.select}
+                >
+                  Select an image
+                </Button>
+              </div>
+            )}
+          />
+          <input
+            hidden
+            ref={fileInput}
+            onChange={e => this.handleSelectFile(e)}
+            type="file"
+            name="imageSelect"
+            id="imageSelect"
+          />
+
+          <Field
+            name="title"
+            render={({ input, meta }) => (
+              <InputField
+                placeholder={FormConfig.placeholder[input.name]}
+                onChange={input.onChange}
+                meta={meta}
+                value={input.value}
               />
-              <Button
-                onClick={() => {
-                  fileInput.current.click();
-                }}
-                className={classes.select}
-              >
-                Select an image
-              </Button>
-            </div>
-          )}
-        />
-        <input
-          hidden
-          ref={fileInput}
-          onChange={e => this.handleSelectFile(e)}
-          type="file"
-          name="imageSelect"
-          id="imageSelect"
-        />
+            )}
+          />
 
-        <Field
-          name="title"
-          render={({ input, meta }) => (
-            <InputField
-              placeholder={FormConfig.placeholder[input.name]}
-              onChange={input.onChange}
-              meta={meta}
-              value={input.value}
-            />
-          )}
-        />
+          <Field
+            name="description"
+            render={({ input, meta }) => (
+              <InputField
+                placeholder={FormConfig.placeholder[input.name]}
+                onChange={input.onChange}
+                meta={meta}
+                {...input}
+              />
+            )}
+          />
 
-        <Field
-          name="description"
-          render={({ input, meta }) => (
-            <InputField
-              placeholder={FormConfig.placeholder[input.name]}
-              onChange={input.onChange}
-              meta={meta}
-              {...input}
-            />
-          )}
-        />
-
-        <Field name="tags">
-          {({ input, meta }) => {
-            return (
-              <Select
-                multiple
-                value={selectedTags}
-                onChange={handleSelectTag}
-                renderValue={selected => {
-                  return generateTagsText(tags, selected);
-                }}
-              >
-                {tags &&
-                  tags.map(tag => (
-                    <MenuItem key={tag.id} value={tag.id}>
-                      <Checkbox checked={selectedTags.indexOf(tag.id) > -1} />
-                      <ListItemText primary={tag.title} />
-                    </MenuItem>
-                  ))}
-              </Select>
-            );
-          }}
-        </Field>
-        {/* <FormControl>
+          <Field name="tags">
+            {({ input, meta }) => {
+              return (
+                <Select
+                  multiple
+                  value={selectedTags}
+                  onChange={handleSelectTag}
+                  renderValue={selected => {
+                    return generateTagsText(tags, selected);
+                  }}
+                >
+                  {tags &&
+                    tags.map(tag => (
+                      <MenuItem key={tag.id} value={tag.id}>
+                        <Checkbox checked={selectedTags.indexOf(tag.id) > -1} />
+                        <ListItemText primary={tag.title} />
+                      </MenuItem>
+                    ))}
+                </Select>
+              );
+            }}
+          </Field>
+          {/* <FormControl>
           <InputLabel htmlFor="select-multiple-checkbox">
             Add some tags
           </InputLabel>
@@ -170,8 +171,9 @@ const FormView = ({
           </Select>
         </FormControl> */}
 
-        <button type="submit">Enter</button>
-      </form>
+          <button type="submit">Enter</button>
+        </form>
+      </FormControl>
     </div>
   );
 };

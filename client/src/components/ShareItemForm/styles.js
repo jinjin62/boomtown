@@ -12,6 +12,21 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit
+  },
+  form: {
+    width: '500px'
+  },
+  tags: {
+    width: '300px'
+  },
+  select: {
+    width: '400px',
+    background: 'orange',
+    borderRadius: '10px',
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    fontSize: '15px'
+    // marginTop: '20px'
   }
 });
 

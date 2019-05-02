@@ -19,7 +19,7 @@ const { ApolloError } = require('apollo-server-express');
 // const jwt = require("jsonwebtoken")
 const AuthMutationsFunction = require('./auth');
 // -------------------------------
-const { UploadScaler, DateScalar } = require('../custom-types');
+//const { UploadScaler, DateScalar } = require('../custom-types');
 
 module.exports = app => {
   /*
@@ -35,7 +35,7 @@ module.exports = app => {
     // Date: DateScalar,
 
     Query: {
-      viewer() {
+      viewer(parent, args, context, info) {
         /**
          * @TODO: Authentication - Server
          *
@@ -65,7 +65,7 @@ module.exports = app => {
           const item = await pgResource.getItems(filter);
           return item;
         } catch (e) {
-          return e;
+          throw new ApolloError(e);
         }
       },
       async tags(parent, args, { pgResource }) {

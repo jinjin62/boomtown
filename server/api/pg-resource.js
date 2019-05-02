@@ -155,18 +155,18 @@ module.exports = postgres => {
               };
 
               const insertNewItem = await postgres.query(newItemQuery);
+              const itemid = insertNewItem.rows[0].id;
 
-              // Insert new Item
-              // @TODO
-              // -------------------------------
+              const tagRelationshipQuery = {
+                text: `INSERT INTO itemtags(tagsid, itemid) VALUES${tagsQueryString(
+                  [...tags],
+                  itemid,
+                  ''
+                )} `,
+                values: tags.map(tag => tag.id)
+              };
 
-              // Generate tag relationships query (use the'tagsQueryString' helper function provided)
-              // @TODO
-              // -------------------------------
-
-              // Insert tags
-              // @TODO
-              // -------------------------------
+              await postgres.query(tagRelationshipQuery);
 
               // Commit the entire transaction!
               client.query('COMMIT', err => {
@@ -175,8 +175,8 @@ module.exports = postgres => {
                 }
                 // release the client back to the pool
                 done();
-                // Uncomment this resolve statement when you're ready!
-                // resolve(newItem.rows[0])
+
+                resolve(insertNewItem.rows[0]);
                 // -------------------------------
               });
             });

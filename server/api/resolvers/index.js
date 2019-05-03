@@ -36,20 +36,10 @@ module.exports = app => {
 
     Query: {
       viewer(parent, args, context, info) {
-        /**
-         * @TODO: Authentication - Server
-         *
-         *  If you're here, you have successfully completed the sign-up and login resolvers
-         *  and have added the JWT from the HTTP cookie to your resolver's context.
-         *
-         *  The viewer is what we're calling the current user signed into your application.
-         *  When the user signed in with their username and password, an JWT was created with
-         *  the user's information cryptographically encoded inside.
-         *
-         *  To provide information about the user's session to the app, decode and return
-         *  the token's stored user here. If there is no token, the user has signed out,
-         *  in which case you'll return null
-         */
+        console.log('CONTEXT:', context.token);
+        if (context.token) {
+          return context.token;
+        }
         return null;
       },
       async user(parent, { id }, { pgResource }, info) {
@@ -128,13 +118,14 @@ module.exports = app => {
     },
 
     Mutation: {
-      // @TODO: Uncomment this later when we add auth
       ...authMutations,
-      // -------------------------------
 
       async addItem(parent, { item }, context, info) {
+        //const user = context.token.id
         /**
+         *
          *  @TODO: Destructuring
+         *
          *
          *  The 'args' and 'context' parameters of this resolver can be destructured
          *  to make things more readable and avoid duplication.

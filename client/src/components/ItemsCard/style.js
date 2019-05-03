@@ -16,6 +16,10 @@ const styles = theme => ({
   },
   input: {
     display: 'none'
+  },
+  itemowner: {
+    display: 'flex',
+    flexDirection: 'row'
   }
 });
 

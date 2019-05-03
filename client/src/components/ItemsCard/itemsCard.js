@@ -23,10 +23,11 @@ function ItemsCard({ classes, item }) {
           title="Image title"
         />
         <CardContent className={classes.cardContent}>
-          <div>
+          <div className={classes.itemowner}>
             <Avatar>
               {item.itemowner && <Gravatar email={item.itemowner.email} />}
             </Avatar>
+            <Typography>{item.itemowner.fullname}</Typography>
           </div>
           <Typography gutterBottom variant="h5" component="h2">
             {item.title}

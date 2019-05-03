@@ -10,6 +10,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from './style';
+import CardMedia from '@material-ui/core/CardMedia';
+import logo from '../../images/boomtown.svg';
+import { Link } from 'react-router-dom';
 
 function ButtonAppBar(props) {
   const { classes } = props;
@@ -17,18 +20,16 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
+          <Link to="/items">
+            <CardMedia className={classes.logo} component="img" image={logo} />
+          </Link>
           <Typography variant="h6" color="inherit" className={classes.grow} />
-          <Fab color="primary" variant="extended" className={classes.fab}>
-            <AddIcon />
-            Share Something
-          </Fab>
+          <Link to="/share">
+            <Button variant="extended" color="primary" size="medium">
+              <AddIcon />
+              Share Something
+            </Button>
+          </Link>
           <IconButton color="inherit">
             <MoreIcon />
           </IconButton>

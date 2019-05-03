@@ -24,11 +24,10 @@ function ButtonAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
-          </Typography>
-          <Fab color="primary" aria-label="Add" className={classes.fab}>
+          <Typography variant="h6" color="inherit" className={classes.grow} />
+          <Fab color="primary" variant="extended" className={classes.fab}>
             <AddIcon />
+            Share Something
           </Fab>
           <IconButton color="inherit">
             <MoreIcon />

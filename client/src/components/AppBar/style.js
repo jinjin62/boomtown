@@ -1,4 +1,4 @@
-const styles = {
+const theme = {
   root: {
     flexGrow: 1
   },
@@ -8,10 +8,10 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  fab: {
+    width: '10%'
   }
-    // fab: {
-    //   margin: theme.spacing.unit
-    // }
 };
 
-export default styles;
+export default theme;

@@ -82,9 +82,10 @@ module.exports = app => {
         );
 
         console.log(user);
+        if (!user) throw 'User was not Found.';
         const valid = await bcrypt.compare(password, user.password);
 
-        if (!valid || !user) throw 'User was not found.';
+        if (!valid || !user) throw 'Username or password is wrong.';
 
         const encodedToken = generateToken(user, app.get('JWT_SECRET'));
         console.log(`JWT: ${encodedToken}`);

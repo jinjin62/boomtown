@@ -19,7 +19,8 @@ import {
 } from '../../redux/ShareItemPreview/reducer';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
-
+import { Mutation } from 'react-apollo';
+import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 // forms lesson prework source 8
 export const FormConfig = {
   placeholder: {
@@ -59,6 +60,8 @@ const FormView = ({
   handleSelectFile
 }) => {
   return (
+    // <Mutation mutation={ADD_ITEM_MUTATION}>
+
     <div>
       {/*Typography className={classes.shareFormTitle}*/}
       <h1>Share. Borrow. Prosper. </h1>
@@ -232,29 +235,34 @@ class ShareForm extends Component {
   // { handleSubmit, pristine, invalid, form, tags }
 
   render() {
-    const { tags, classes } = this.props;
+    const { tags, classes, selectedTags } = this.props;
     return (
-      <div>
-        <Form
-          onSubmit={values => {
-            this.saveItem(values);
-          }}
-          render={props => (
-            <FormView
-              {...props}
-              tags={tags}
-              dispatchUpdate={this.dispatchUpdate}
-              fileInput={this.fileInput}
-              updateItem={this.props.updateItem}
-              selectedTags={this.state.selectedTags}
-              generateTagsText={this.generateTagsText}
-              handleSelectTag={this.handleSelectTag}
-              classes={classes}
-              handleSelectFile={this.handleSelectFile}
+      <Mutation mutation={ADD_ITEM_MUTATION}>
+        {(addItem, { data }) => (
+          <div>
+            <Form
+              onSubmit={values => {
+                let newTags = selectedTags.map(t => tags[parseInt(t) - 1]);
+                addItem({ variables: { item: { ...values, tags: newTags } } });
+              }}
+              render={props => (
+                <FormView
+                  {...props}
+                  tags={tags}
+                  dispatchUpdate={this.dispatchUpdate}
+                  fileInput={this.fileInput}
+                  updateItem={this.props.updateItem}
+                  selectedTags={this.state.selectedTags}
+                  generateTagsText={this.generateTagsText}
+                  handleSelectTag={this.handleSelectTag}
+                  classes={classes}
+                  handleSelectFile={this.handleSelectFile}
+                />
+              )}
             />
-          )}
-        />
-      </div>
+          </div>
+        )}
+      </Mutation>
     );
   }
 }

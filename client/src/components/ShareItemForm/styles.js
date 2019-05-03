@@ -1,4 +1,8 @@
 const styles = theme => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'spaceAround'
+  },
   shareItemButton: {
     marginTop: 20
   },
@@ -11,10 +15,11 @@ const styles = theme => ({
     fontWeight: 700
   },
   formControl: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    width: 400
   },
   form: {
-    width: '500px'
+    width: 500
   },
   tags: {
     width: '300px'
@@ -27,6 +32,9 @@ const styles = theme => ({
     paddingRight: '30px',
     fontSize: '15px'
     // marginTop: '20px'
+  },
+  formContainer: {
+    width: 400
   }
 });
 

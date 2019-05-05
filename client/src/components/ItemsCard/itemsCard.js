@@ -15,38 +15,36 @@ import Gravatar from 'react-gravatar';
 
 function ItemsCard({ classes, item }) {
   return (
-    <Grid item xs={12} sm={6} md={4} lg={4}>
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.cardMedia}
-          image={item.imageurl}
-          title="Image title"
-        />
-        <CardContent className={classes.cardContent}>
-          <div className={classes.itemowner}>
-            <Avatar>
-              {item.itemowner && <Gravatar email={item.itemowner.email} />}
-            </Avatar>
-            <Typography>{item.itemowner.fullname}</Typography>
-          </div>
-          <Typography gutterBottom variant="h5" component="h2">
-            {item.title}
-          </Typography>
-          <Typography>{item.tags.map(tag => tag.title)}</Typography>
-          <Typography>{item.description}</Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="medium"
-            variant="outlined"
-            color="default"
-            className={classes.button}
-          >
-            Borrow Item
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
+    <Card className={classes.card}>
+      <CardMedia
+        className={classes.cardMedia}
+        image={item.imageurl}
+        title="Image title"
+      />
+      <CardContent className={classes.cardContent}>
+        <div className={classes.itemowner}>
+          <Avatar>
+            {item.itemowner && <Gravatar email={item.itemowner.email} />}
+          </Avatar>
+          <Typography>{item.itemowner.fullname}</Typography>
+        </div>
+        <Typography gutterBottom variant="h5" component="h2">
+          {item.title}
+        </Typography>
+        <Typography>{item.tags.map(tag => tag.title)}</Typography>
+        <Typography>{item.description}</Typography>
+      </CardContent>
+      <CardActions>
+        <Button
+          size="medium"
+          variant="outlined"
+          color="default"
+          className={classes.button}
+        >
+          Borrow Item
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 

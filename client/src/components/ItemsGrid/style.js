@@ -1,12 +1,12 @@
 const styles = theme => ({
   layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    width: '100%',
+    // marginLeft: theme.spacing.unit * 3,
+    // marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-      minWidth: 1400,
-      marginLeft: 'auto',
-      marginRight: 'auto'
+      minWidth: 1700
+      // marginLeft: 'auto',
+      // marginRight: 'auto'
     }
   },
   cardGrid: {

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './style';
 import classNames from 'classnames';
 
-function ItemsGrid({ classes, items }) {
+function ItemsGrid({ classes, items, item }) {
   return (
     <div className={classNames(classes.layout, classes.cardGrid)}>
       <Grid

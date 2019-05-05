@@ -20,7 +20,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import { Mutation } from 'react-apollo';
-import { ADD_ITEM_MUTATION } from '../../apollo/queries';
+import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
 // forms lesson prework source 8
 export const FormConfig = {
   placeholder: {
@@ -232,8 +232,6 @@ class ShareForm extends Component {
     });
   };
 
-  // { handleSubmit, pristine, invalid, form, tags }
-
   render() {
     const { tags, classes, selectedTags } = this.props;
     return (
@@ -242,8 +240,13 @@ class ShareForm extends Component {
           <div>
             <Form
               onSubmit={values => {
-                let newTags = selectedTags.map(t => tags[parseInt(t) - 1]);
-                addItem({ variables: { item: { ...values, tags: newTags } } });
+                console.log(values);
+                addItem({
+                  variables: {
+                    item: { ...values },
+                    tags: this.addItemTags
+                  }
+                });
               }}
               render={props => (
                 <FormView

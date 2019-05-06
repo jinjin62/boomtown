@@ -30,6 +30,7 @@ function ButtonAppBar(props) {
               Share Something
             </Button>
           </Link>
+          {/* log out mutation why no work */}
           <IconButton color="inherit">
             <MoreIcon />
           </IconButton>

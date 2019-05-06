@@ -6,8 +6,8 @@ Boomtown is a React/Redux app designed to bolster the idea of sharing within com
 
 ## Screenshots
 
-<img src'./img/boomLogIn.png'>
-<img src'./img/boomItems.png'>
+<img src='./img/boomLogIn.png'>
+<img src='./img/boomItems.png'>
 
 ## Installation
 

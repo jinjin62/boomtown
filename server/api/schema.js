@@ -3,6 +3,8 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   directive @auth on OBJECT | FIELD_DEFINITION
 
+  #scalar Date
+
   type Item @auth {
     id: ID!
     title: String!

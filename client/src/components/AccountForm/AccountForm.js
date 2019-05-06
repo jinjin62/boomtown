@@ -160,5 +160,3 @@ export default compose(
   }),
   withStyles(styles)
 )(AccountForm);
-
-// @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.

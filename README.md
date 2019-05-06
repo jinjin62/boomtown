@@ -1,93 +1,37 @@
-# Boomtown 🏙
+# Boomtown 🏙🏙🏙
 
-## Server
+## Description
 
-Commands must be run from the `server` directory:
+Boomtown is a React/Redux app designed to bolster the idea of sharing within communities. Users are free to post items available for borrow, or borrow items themselves. Items are displayed in a modern masonry-style layout for hipster convenience.
 
-### Installation
+## Screenshots
 
-```bash
-npm install
-```
+<img src'./img/boomLogIn.png'>
+<img src'./img/boomItems.png'>
 
-### Run
+## Installation
 
-```bash
-npm run start:dev
-```
-
-### Tests
-
-Just linting:
+Download the repo, then run:
 
 ```bash
-npm run lint
+cd client && npm install
 ```
 
-Run linting, and fix any errors:
+## Start-up
+
+run:
 
 ```bash
-npm run lint:fix
+npm run dev
 ```
 
-Run Jest tests:
+from inside the `server` directory, then the `client`.
 
-```
-npm run jest
-```
+## Built With
 
-Run Jest tests, and watch for changes:
-
-```bash
-npm run jest:watch
-```
-
-Run all tests:
-
-```bash
-npm run test
-```
-
-## Client
-
-Commands must be run from the `client` directory:
-
-### Installation
-
-```bash
-npm install
-```
-
-### Run
-
-```bash
-npm start
-```
-
-### Build
-
-```bash
-npm run build
-```
-
-### Tests
-
-Just linting:
-
-```bash
-npm run lint
-```
-
-Run linting, and fix any errors:
-
-```bash
-npm run lint:fix
-```
-
-Run all tests:
-
-```bash
-npm run test
-```
-
-
+- Apollo Client
+- Express
+- GraphQL
+- Postgres
+- React
+- Redux

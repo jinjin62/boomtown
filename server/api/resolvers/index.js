@@ -2,7 +2,7 @@ const { ApolloError } = require('apollo-server-express');
 
 const AuthMutationsFunction = require('./auth');
 // -------------------------------
-const { UploadScaler, DateScalar } = require('../custom-types');
+const { UploadScalar, DateScalar } = require('../custom-types');
 
 module.exports = app => {
   /*
@@ -12,12 +12,11 @@ module.exports = app => {
     logout: ()=>{},
   }
 
+  Upload: UploadScalar,
+  Date: DateScalar,
   */
   const authMutations = AuthMutationsFunction(app);
   return {
-    Upload: UploadScalar,
-    Date: DateScalar,
-
     Query: {
       viewer(parent, args, context, info) {
         console.log('CONTEXT:', context.token);

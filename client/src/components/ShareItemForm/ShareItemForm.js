@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
+
 import {
   TextField,
   Button,
@@ -241,6 +242,7 @@ class ShareForm extends Component {
             <Form
               onSubmit={values => {
                 console.log(values);
+                //values show, cant get to submit, addItem, addItemQuery
                 addItem({
                   variables: {
                     item: { ...values },

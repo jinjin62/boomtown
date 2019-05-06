@@ -19,7 +19,7 @@ const styles = theme => ({
     width: 400
   },
   form: {
-    width: 500
+    width: '80%'
   },
   tags: {
     width: '300px'
@@ -32,10 +32,10 @@ const styles = theme => ({
     paddingRight: '30px',
     fontSize: '15px'
     // marginTop: '20px'
-  },
-  formContainer: {
-    width: 400
   }
+  // formContainer: {
+  //   width: 400
+  // }
 });
 
 export default styles;

@@ -7,12 +7,14 @@ export default function validate(values) {
   if (values.description === '') {
     errors.description = 'Description is missing';
   }
-  if (!fileSelected) {
-    errors.fileSelected = 'Image is missing';
-  }
-  if (!selectedTags) {
-    errors.tag = 'At least one tag must be selected';
-  }
+  // if have image mutation instead of placeholder
+  // if (!fileSelected) {
+  //   errors.fileSelected = 'Image is missing';
+  // }
+
+  // if (!selectedTags) {
+  //   errors.tag = 'At least one tag must be selected';
+  // }
 
   return errors;
 }

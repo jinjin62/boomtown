@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
-
 import {
   TextField,
   Button,
   ListItemText,
   Select,
-  FormControl,
-  InputLabel,
   MenuItem,
-  Checkbox,
-  Typography
+  Checkbox
 } from '@material-ui/core/';
 import {
   updateItem,
@@ -21,7 +17,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import { Mutation } from 'react-apollo';
-import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
+import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 // forms lesson prework source 8
 export const FormConfig = {
   placeholder: {
@@ -233,22 +229,28 @@ class ShareForm extends Component {
     });
   };
 
+  async addNewItem(values, tags, addItem) {
+    try {
+      const newItem = {
+        ...values,
+        tags: this.applyTags(tags)
+      };
+      await addItem({ variables: { item: newItem } });
+    } catch (e) {
+      throw Error(e);
+    }
+  }
   render() {
-    const { tags, classes, selectedTags } = this.props;
+    const { tags, classes } = this.props;
     return (
       <Mutation mutation={ADD_ITEM_MUTATION}>
-        {(addItem, { data }) => (
+        {(addNewItem, { data }) => (
           <div>
             <Form
               onSubmit={values => {
                 console.log(values);
                 //values show, cant get to submit, addItem, addItemQuery
-                addItem({
-                  variables: {
-                    item: { ...values },
-                    tags: this.addItemTags
-                  }
-                });
+                addNewItem(values, tags, this.addItem);
               }}
               render={props => (
                 <FormView

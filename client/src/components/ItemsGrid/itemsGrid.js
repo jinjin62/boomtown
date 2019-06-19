@@ -1,25 +1,28 @@
 import React from 'react';
-import ItemsCard from '../ItemsCard';
-import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './style';
-import classNames from 'classnames';
+import { Grid } from '@material-ui/core';
+import ItemsCard from '../ItemsCard/itemsCard';
+import styles from './styles';
 
-function ItemsGrid({ classes, items, item }) {
+const ItemsGrid = ({ classes, items, viewer }) => {
   return (
-    <div className={classNames(classes.layout, classes.cardGrid)}>
-      <Grid
-        className={classes.gridContainer}
-        container
-        //direction="row"
-        spacing={40}
-        // justify="space-around"
-        // justify="center"
-      >
-        {items ? items.map(item => <ItemsCard item={item} />) : null}
-      </Grid>
-    </div>
+    <Grid container className={classes.root} spacing={24}>
+      {items.map(item => {
+        return (
+          <Grid key={item.id} item xs={3} className={classes.gridItem}>
+            <ItemsCard item={item} viewer={viewer} />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
-}
+};
+
+ItemsGrid.propTypes = {
+  classes: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
+  viewer: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(ItemsGrid);

@@ -10,18 +10,3 @@ module.exports = app => {
     connectionTimeoutMillis: 2000
   });
 };
-
-// const pool = new Pool();
-
-// pool.query('SELECT * FROM tags', (err, result) => {
-//   if (err) {
-//     return console.error('Error executing query', err.stack);
-//   }
-//   console.log(result);
-// });
-
-// pool
-//   .query('SELECT * FROM tags')
-//   .then(res => console.log(res))
-//   .catch(err => console.error('Error executing query', err.stack));
-  

@@ -19,14 +19,14 @@ module.exports = ({ app, pgResource }) => {
 
   const apolloServer = new ApolloServer({
     context: ({ req }) => {
-      console.log(req.cookies);
+
       const tokenName = app.get('JWT_COOKIE_NAME');
       const encodedToken = req ? req.cookies[tokenName] : undefined;
       const token = encodedToken
         ? jwt.decode(encodedToken, app.get('JWT_SECRET'))
         : undefined;
 
-      console.log(`token: ${token}`);
+
 
       return {
         req,

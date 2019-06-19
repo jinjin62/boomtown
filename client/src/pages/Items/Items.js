@@ -1,9 +1,19 @@
 import React from 'react';
-import ItemGrid from '../../components/ItemsGrid';
-import Grid from '@material-ui/core/Grid';
+import ItemsGrid from '../../components/ItemsGrid';
+import PropTypes from 'prop-types';
 
-const Items = ({ classes, items }) => {
-  return <ItemGrid items={items} />;
+const Items = ({ classes, items, viewer }) => {
+  return (
+    <div className={classes.container}>
+      <ItemsGrid items={items} viewer={viewer} />
+    </div>
+  );
+};
+
+Items.propTypes = {
+  classes: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
+  viewer: PropTypes.object.isRequired
 };
 
 export default Items;

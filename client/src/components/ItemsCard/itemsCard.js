@@ -1,59 +1,97 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-
-import { Avatar, Grid } from '@material-ui/core';
-import { Link, withRouter } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import styles from './style';
-
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Gravatar from 'react-gravatar';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography
+} from '@material-ui/core';
+import styles from './styles';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import moment from 'moment';
 
-function ItemsCard({ classes, item }) {
+const ItemsCard = ({ classes, item, viewer }) => {
+  const dateToStore = new Date(item.created);
+  const momentDate = moment(dateToStore);
   return (
-    <Grid item xs={12} sm={6} md={4} lg={4}>
-      <Card className={classes.card}>
+    <Card className={classes.card}>
+      <Fragment>
         <CardMedia
-          className={classes.cardMedia}
-          image={
-            item.imageurl === ''
-              ? 'https://loremflickr.com/320/240/'
-              : item.imageurl
-          }
-          title="Image title"
+          className={classes.media}
+          image={item.imageurl || 'http://via.placeholder.com/350x?text=Image'}
+          title={item.title}
           component={Link}
           to={`/profile/${item.itemowner.id}`}
         />
-        <CardContent className={classes.cardContent}>
-          <div className={classes.itemowner}>
-            <Avatar>
-              {item.itemowner && <Gravatar email={item.itemowner.email} />}
+
+        <CardContent className={classes.content}>
+          <CardContent
+            className={classes.userInfo}
+            component={Link}
+            to={`/profile/${item.itemowner.id}`}
+          >
+            <Avatar className={classes.avatar}>
+              {item.itemowner.email ? (
+                <Gravatar email={item.itemowner.email} />
+              ) : (
+                <Gravatar email="placeholder@placeholder.com" />
+              )}
             </Avatar>
-            <Typography>{item.itemowner.fullname}</Typography>
-          </div>
-          <Typography gutterBottom variant="h5" component="h2">
+            <div className={classes.metaInfo}>
+              <Typography className={classes.metaName} component="h2">
+                {item.itemowner.fullname}
+              </Typography>
+              <Typography className={classes.metaDate}>
+                {momentDate.fromNow()}
+              </Typography>
+            </div>
+          </CardContent>
+
+          <Typography className={classes.title} component="h1">
             {item.title}
           </Typography>
-          <Typography> {item.tags.map(tag => tag.title).join(', ')}</Typography>
-          <Typography>{item.description}</Typography>
+
+          <Typography className={classes.select} color="textSecondary">
+            {item.tags.map(tag => `${tag.title}`).join(', ')}
+          </Typography>
+          <Typography className={classes.description}>
+            {item.description}
+          </Typography>
         </CardContent>
+      </Fragment>
+
+      {viewer && viewer.id !== item.itemowner.id ? (
         <CardActions>
           <Button
-            size="medium"
-            variant="outlined"
-            color="default"
             className={classes.button}
+            variant="outlined"
+            onClick={() => console.log('Borrowed!')}
           >
-            Borrow Item
+            Borrow
           </Button>
         </CardActions>
-      </Card>
-    </Grid>
+      ) : null}
+    </Card>
   );
-}
+};
+
+ItemsCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.object
+};
+
+ItemsCard.defaultProps = {
+  item: {
+    title: 'title',
+    description: 'description',
+    tags: []
+  }
+};
 
 export default withRouter(withStyles(styles)(ItemsCard));

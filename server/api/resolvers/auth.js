@@ -18,7 +18,6 @@ function generateToken(user, secret) {
 module.exports = app => {
   return {
     async signup(parent, args, context) {
-      console.log(args);
       try {
         const hashedPassword = await bcrypt.hash(args.user.password, 10);
         // -------------------------------
@@ -30,7 +29,6 @@ module.exports = app => {
         });
 
         const encodedToken = generateToken(user, app.get('JWT_SECRET'));
-        console.log(`JWT: ${encodedToken}`);
 
         setCookie({
           tokenName: app.get('JWT_COOKIE_NAME'),
@@ -50,20 +48,17 @@ module.exports = app => {
 
     async login(parent, args, context) {
       const { email, password } = args.user;
-      console.log(email, password);
       try {
         const user = await context.pgResource.getUserAndPasswordForVerification(
           args.user.email
         );
 
-        console.log(user);
         if (!user) throw 'User was not Found.';
         const valid = await bcrypt.compare(password, user.password);
 
         if (!valid || !user) throw 'Username or password is wrong.';
 
         const encodedToken = generateToken(user, app.get('JWT_SECRET'));
-        console.log(`JWT: ${encodedToken}`);
 
         setCookie({
           tokenName: app.get('JWT_COOKIE_NAME'),

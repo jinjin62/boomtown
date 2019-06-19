@@ -10,27 +10,29 @@ const styles = theme => ({
     background: 'white',
     display: 'flex'
   },
-
+  topWrapper: {
+    backgroundColor: '#212121'
+  },
   profileItemContainer: {
     paddingLeft: 100,
     paddingRight: 100,
     paddingBottom: 100,
-    marginTop: 30,
-    backgroundColor: '#212121'
+    backgroundColor: '#212121',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
-
-  profileItems: {
-    marginTop: 30
+  profileCard: {
+    margin: 100
   },
-
   shareTitle: {
     paddingLeft: 100,
     paddingTop: 100,
     fontWeight: 700,
     fontSize: 40,
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
+    backgroundColor: '#212121'
   },
-
   profileStats: {
     fontSize: 20
   },
@@ -38,20 +40,20 @@ const styles = theme => ({
     fontSize: 30,
     fontWeight: 700
   },
-
   profileAvatar: {
     marginRight: 10,
     width: 50,
     height: 50
   },
-
   profileInfo: {
     display: 'flex',
     marginBottom: 10
   },
-
   numItem: {
     fontWeight: 600
+  },
+  profileItems: {
+    // maxWidth: '100%'
   }
 });
 

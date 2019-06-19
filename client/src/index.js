@@ -13,14 +13,9 @@ import theme from './theme';
 import Layout from './routes/Layout';
 
 import { ViewerProvider } from './context/ViewerProvider';
-import Home from './pages/Home';
-import ItemsGrid from './components/ItemsGrid';
 import store from './redux';
-// -------------------------------
 
 import './index.css';
-//import Items from './pages/Items/Items';
-//<ItemsGrid />
 
 const App = () => {
   return (

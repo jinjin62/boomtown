@@ -1,13 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Grid, Typography, Avatar, Card, CardContent } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import ItemsCard from '../../components/ItemsCard';
 import Gravatar from 'react-gravatar';
+import styles from './styles';
 import PropTypes from 'prop-types';
 
 const Profile = ({ classes, profile }) => {
   return (
-    <Fragment className={classes.wrapper}>
-      <div>
+    <div className={classes.wrapper}>
+      <div className={classes.topWrapper}>
         <Card className={classes.profileContainer}>
           <CardContent>
             <div className={classes.profileInfo}>
@@ -20,40 +22,37 @@ const Profile = ({ classes, profile }) => {
             </div>
             <div>
               <Typography className={classes.profileStats}>
-                <span className={classes.numItem}>{profile.items.length}</span>{' '}
-                Shared Items{' '}
+                <span className={classes.numItem}>{profile.items.length}</span>
+                <span className={classes.shared}>Shared Items</span>
                 <span className={classes.numItem}>
                   {profile.borrowed.length}
-                </span>{' '}
+                </span>
                 Borrowed Items
               </Typography>
-              <p>{profile.bio}</p>
+              <p>{!profile.bio ? 'No bio provided' : profile.bio}</p>
             </div>
           </CardContent>
         </Card>
       </div>
 
       <div>
-        <Typography className={classes.shareTitle}>Shared Items </Typography>
+        <Typography className={classes.shareTitle}>Shared Items</Typography>
       </div>
-      <Grid container className={classes.profileItemContainer}>
-        <Grid item />
+      <Grid
+        // spacing={10}
+        className={classes.profileItemContainer}
+      >
         {profile.items.map(item => {
           return (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              className={classes.profileItems}
+            <ItemsCard
               key={item.id}
-            >
-              <ItemsCard item={item} />
-            </Grid>
+              item={item}
+              className={classes.profileCard}
+            />
           );
         })}
       </Grid>
-    </Fragment>
+    </div>
   );
 };
 
@@ -62,4 +61,4 @@ Profile.propTypes = {
   profile: PropTypes.object.isRequired
 };
 
-export default Profile;
+export default withStyles(styles)(Profile);

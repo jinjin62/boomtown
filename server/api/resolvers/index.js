@@ -19,7 +19,6 @@ module.exports = app => {
   return {
     Query: {
       viewer(parent, args, context, info) {
-        console.log('CONTEXT:', context.token);
         if (context.token) {
           return context.token;
         }
@@ -104,8 +103,6 @@ module.exports = app => {
       ...authMutations,
 
       async addItem(parent, { item }, context, info) {
-        console.log('ITEM: ', item);
-
         const user = context.token.id;
         try {
           const addItemTags = await context.pgResource.saveNewItem({

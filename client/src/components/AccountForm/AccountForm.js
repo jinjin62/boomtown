@@ -28,9 +28,8 @@ class AccountForm extends Component {
     return (
       <Form
         onSubmit={values => {
-          this.state.error = null;
+          this.setState({ error: null });
           const user = { variables: { user: values } };
-          console.log('user', user);
           this.state.formToggle
             ? loginMutation(user).catch(error => this.setState({ error }))
             : signupMutation(user).catch(error => this.setState({ error }));
@@ -125,12 +124,7 @@ class AccountForm extends Component {
               </Grid>
             </FormControl>
             <Typography className={classes.errorMessage}>
-              {(this.state.error &&
-                this.state.formToggle &&
-                this.state.error.graphQLErrors[0].message) ||
-                (this.state.error &&
-                  !this.state.formToggle &&
-                  this.state.error.graphQLErrors[0].message)}
+              {this.state.error ? 'Error: Email or Password incorrect' : null}
             </Typography>
           </form>
         )}

@@ -4,17 +4,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './style';
 import CardMedia from '@material-ui/core/CardMedia';
+import { Fingerprint, PowerSettingsNew } from '@material-ui/icons';
 import logo from '../../images/boomtown.svg';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
+import { withRouter } from 'react-router';
 
 class ButtonAppBar extends Component {
   state = {
@@ -30,7 +31,7 @@ class ButtonAppBar extends Component {
   };
 
   render() {
-    const { classes, logout } = this.props;
+    const { classes, logout, location } = this.props;
     const { anchorEl } = this.state;
 
     return (
@@ -45,13 +46,16 @@ class ButtonAppBar extends Component {
               />
             </Link>
             <Typography variant="h6" color="inherit" className={classes.grow} />
-            <Link to="/share">
-              <Button variant="extended" color="primary" size="medium">
-                <AddIcon />
-                Share Something
-              </Button>
-            </Link>
-            {/* log out mutation why no work */}
+            {location.pathname === `/share` ? (
+              ''
+            ) : (
+              <Link to="/share">
+                <Button variant="contained" color="primary" size="medium">
+                  <AddIcon />
+                  Share Something
+                </Button>
+              </Link>
+            )}
             <Button
               aria-owns={anchorEl ? 'simple-menu' : undefined}
               aria-haspopup="true"
@@ -70,7 +74,7 @@ class ButtonAppBar extends Component {
                 component={Link}
                 to="/profile"
               >
-                Profile
+                <Fingerprint className={classes.menuIcon} /> Profile
               </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -78,7 +82,7 @@ class ButtonAppBar extends Component {
                   this.setState({ anchorEl: null });
                 }}
               >
-                Logout
+                <PowerSettingsNew className={classes.menuIcon} /> Logout
               </MenuItem>
             </Menu>
           </Toolbar>
@@ -94,12 +98,14 @@ const refetchQueries = [
   }
 ];
 
-export default compose(
-  graphql(LOGOUT_MUTATION, {
-    options: {
-      refetchQueries
-    },
-    name: 'logout'
-  }),
-  withStyles(styles)
-)(ButtonAppBar);
+export default withRouter(
+  compose(
+    graphql(LOGOUT_MUTATION, {
+      options: {
+        refetchQueries
+      },
+      name: 'logout'
+    }),
+    withStyles(styles)
+  )(ButtonAppBar)
+);

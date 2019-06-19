@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-
 import ShareItemForm from '../../components/ShareItemForm';
 import ShareItemPreview from '../../components/ShareItemPreview';
 import styles from './styles';
@@ -10,17 +9,13 @@ const Share = ({ classes, tags }) => {
   return (
     <Grid
       container
-      className={classes.root}
+      className={classes.shareFormContainer}
       direction="row"
       alignItems="center"
-      justify="center"
+      justify="space-around"
     >
-      <Grid item xs={12} sm={12} md={6}>
-        <ShareItemPreview tags={tags} />
-      </Grid>
-      <Grid item xs={12} sm={12} md={6}>
-        <ShareItemForm tags={tags} />
-      </Grid>
+      <ShareItemPreview tags={tags} classes={classes} />
+      <ShareItemForm tags={tags} />
     </Grid>
   );
 };

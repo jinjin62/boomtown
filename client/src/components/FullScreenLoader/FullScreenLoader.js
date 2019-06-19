@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './style';
 
 const FullScreenLoader = ({ classes }) => {
-  //other logic
 
   return (
     <div className={classes.container}>

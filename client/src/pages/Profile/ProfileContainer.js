@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import Profile from './Profile';
 import FullScreenLoader from '../../components/FullScreenLoader';
-import styles from './styles';
 import { ALL_USER_ITEMS_QUERY } from '../../apollo/queries';
-import { withStyles } from '@material-ui/core/styles';
 import { Query } from 'react-apollo';
-
+import { ViewerContext } from '../../context/ViewerProvider';
 class ProfileContainer extends Component {
   render() {
-    const id = this.props.match.params.id;
-    //id que doenst give profilepage, why
     return (
-      <Query query={ALL_USER_ITEMS_QUERY} variables={{ id: 1 }}>
-        {({ loading, error, data }) => {
-          if (loading) return <FullScreenLoader />;
-          if (error) return <p>{`Error! ${error.message}`}</p>;
+      <ViewerContext.Consumer>
+        {values => (
+          <Query
+            query={ALL_USER_ITEMS_QUERY}
+            variables={{ id: values.viewer.id }}
+          >
+            {({ loading, error, data }) => {
+              if (loading) return <FullScreenLoader />;
+              if (error) return <p>{`Error! ${error.message}`}</p>;
 
-          return <Profile classes={this.props.classes} profile={data.user} />;
-        }}
-      </Query>
+              return <Profile profile={data.user} />;
+            }}
+          </Query>
+        )}
+      </ViewerContext.Consumer>
     );
   }
 }
 
-export default withStyles(styles)(ProfileContainer);
+export default ProfileContainer;

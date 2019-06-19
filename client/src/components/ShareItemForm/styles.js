@@ -1,41 +1,48 @@
 const styles = theme => ({
-  root: {
+  container: {
     display: 'flex',
-    justifyContent: 'spaceAround'
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    lineHeight: 2
+    // minWidth: 300
   },
-  shareItemButton: {
-    marginTop: 20
+  textField: {
+    marginTop: '1.5rem',
+    width: '100%'
   },
-  button: {
-    margin: theme.spacing.unit
+  dense: {
+    marginTop: 19
   },
-
-  shareFormTitle: {
-    fontSize: '4rem',
-    fontWeight: 700
+  menu: {
+    width: '100%'
   },
   formControl: {
-    margin: theme.spacing.unit,
-    width: 400
+    marginTop: '1.5rem',
+    width: '100%'
   },
-  form: {
-    width: '80%'
+  dropDown: {
+    width: '100%'
   },
-  tags: {
-    width: '300px'
+  header: {
+    fontSize: '2.8rem',
+    fontWeight: 700,
+    lineHeight: '1',
+    marginBottom: '3rem'
   },
-  select: {
-    width: '400px',
-    background: 'orange',
-    borderRadius: '10px',
-    paddingLeft: '30px',
-    paddingRight: '30px',
-    fontSize: '15px'
-    // marginTop: '20px'
+  imageButton: {
+    background: theme.palette.primary.main,
+    width: '100%'
+  },
+  resetImage: {
+    background: '#fff',
+    border: '1px solid #D3D3D3',
+    width: '100%'
+  },
+  shareButton: {
+    background: theme.palette.primary.main,
+    marginTop: '2rem',
+    padding: '0.5rem 1.5rem'
   }
-  // formContainer: {
-  //   width: 400
-  // }
 });
 
 export default styles;
